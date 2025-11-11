@@ -1,3 +1,4 @@
+/* Load Data */
 const url = "https://raw.githubusercontent.com/menocsk27/datavis-a2/main/cars.csv";
 
 d3.csv(url).then(data => {
@@ -30,8 +31,10 @@ d3.csv(url).then(data => {
   drawScatterplot(data);
 });
 
+/* Scatterplot */
 function drawScatterplot(data) {
   const width = 650, height = 450, margin = 50;
+
   const svg = d3.select("#chart").append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -90,6 +93,7 @@ function drawScatterplot(data) {
       d3.select(this).attr("stroke", "#000").attr("stroke-width", 2);
     });
 
+  /* Legend */
   const legend = svg.append("g").attr("transform", `translate(${width - 150},${50})`);
   types.forEach((type, i) => {
     const g = legend.append("g").attr("transform", `translate(0,${i * 25})`);
@@ -105,6 +109,7 @@ function drawScatterplot(data) {
   });
 }
 
+/* Sidebar - Details */
 function showDetails(d) {
   let html = `<h3>${d.Name}</h3><table>`;
   for (const [key, value] of Object.entries(d)) {
@@ -114,6 +119,7 @@ function showDetails(d) {
   d3.select("#details").html(html);
 }
 
+/* Sidebar - Starplot */
 function drawStarPlot(d) {
   const attrs = ["Retail Price", "Engine Size", "Cylinder", "Horsepower", "City MPG", "Highway MPG"];
   const maxRanges = {
